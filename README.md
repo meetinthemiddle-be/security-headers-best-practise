@@ -1,2 +1,2 @@
 # security-headers-best-practise
-Best practise for security headers. Fork at will.
+Best practise for HTTP security headers. Fork at will.
