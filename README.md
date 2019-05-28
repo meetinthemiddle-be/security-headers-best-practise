@@ -1,4 +1,4 @@
-# security-headers-best-practise
+# HTTP security headers best practise (WORK IN PROGESS)
 Best practise cheat sheet for HTTP security headers. Fork at will for your specific project needs.
 
 
