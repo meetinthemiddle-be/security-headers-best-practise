@@ -19,3 +19,4 @@ Remark 1 : When serving an API that provides only JSON responses and doesn't ser
 - https://scotthelme.co.uk/hardening-your-http-response-headers/
 - https://security.stackexchange.com/questions/147554/security-headers-for-a-web-api
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers#Security
+- https://pentest-tools.com/blog/essential-http-security-headers/
