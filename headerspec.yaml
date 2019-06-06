@@ -1,0 +1,11 @@
+Server:
+  allow: No
+
+X-Powered-By:
+  allow: No
+
+Strict-Transport-Security:
+  mandatory: yes
+  attributes:
+    key: max-age
+    value: 63113904
