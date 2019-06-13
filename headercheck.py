@@ -36,7 +36,8 @@ with open("presence_and_frequency.yaml", 'r') as stream:
          spec_dictionary = yaml.safe_load(stream)
          for spec_header in spec_dictionary.items():
 
-            del headers_not_in_spec[spec_header[0].lower()]
+            if(spec_header[0].lower() in headers_not_in_spec):
+                del headers_not_in_spec[spec_header[0].lower()]
 
             min_required_count = int(spec_header[1]["mincount"])
             max_allowed_count = int(spec_header[1]["maxcount"])
