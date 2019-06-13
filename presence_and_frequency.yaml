@@ -1,0 +1,66 @@
+Server:
+  maxcount: 0
+  overmax-penalty: 30
+  overmax-message: 'This header should not be present. Ever. Nothing good can come of it.'
+  
+  mincount: 0
+
+
+X-Powered-By:
+  maxcount: 0
+  overmax-penalty: 30
+  overmax-message: 'This header should not be present. Ever. Nothing good can come of it.'
+
+  mincount: 0
+
+
+Content-Security-Policy:
+  maxcount: 1
+  overmax-penalty: 0
+  overmax-message: 'This header can be set more than once, but do make sure this is intended and has the desired effect.'
+  
+  mincount: 1
+  undermin-penalty: 50
+  undermin-message: 'This header must always be present and was not found.'
+
+
+Strict-Transport-Security:
+  maxcount: 1
+  overmax-penalty: 50
+  overmax-message: 'This header should not be set more than once.'
+  
+  mincount: 1
+  undermin-penalty: 50
+  undermin-message: 'This header must always be present and was not found.'
+  
+
+X-Content-Type-Options:
+  maxcount: 1
+  overmax-penalty: 10
+  overmax-message: 'This header should not be set more than once.'
+
+  mincount: 1
+  undermin-penalty: 50
+  undermin-message: 'This header must always be present and was not found.'
+
+
+X-Frame-Options:
+  maxcount: 1
+  overmax-penalty: 10
+  overmax-message: 'This header should not be set more than once.'
+
+  mincount: 1
+  undermin-penalty: 50
+  undermin-message: 'This header must always be present and was not found.'
+
+
+X-XSS-Protection:
+  maxcount: 1
+  overmax-penalty: 10
+  overmax-message: 'This header should not be set more than once.'
+
+  mincount: 1
+  undermin-penalty: 50
+  undermin-message: 'This header must always be present and was not found.'
+
+

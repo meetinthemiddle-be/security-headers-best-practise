@@ -1,4 +1,4 @@
-
+import yaml
 import re
 from subprocess import Popen, PIPE
 
@@ -43,3 +43,16 @@ def get_headers_from_response(found_headers_raw):
                 found_headers_clean[found_header_clean] = 1
         
     return(found_headers_clean)
+
+def get_headers_to_ignore():
+    ignore_these_headers = []
+    with open("ignore-these-headers.yaml", 'r') as stream:
+        try:
+            spec_dictionary = yaml.safe_load(stream)
+            for spec_header in spec_dictionary.items():
+                ignore_these_headers.append(spec_header[0].lower())
+            
+
+        except yaml.YAMLError as exc:
+            print(exc)
+    return ignore_these_headers
