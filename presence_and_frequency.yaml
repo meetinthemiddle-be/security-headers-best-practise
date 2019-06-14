@@ -1,3 +1,5 @@
+# Headers we don't like to see
+
 Server:
   maxcount: 0
   overmax-penalty: 30
@@ -13,6 +15,16 @@ X-Powered-By:
 
   mincount: 0
 
+
+X-AspNet-Version:
+  maxcount: 0
+  overmax-penalty: 30
+  overmax-message: 'This header should not be present. Ever. Nothing good can come of it.'
+
+  mincount: 0
+
+
+# Headers we would like to see
 
 Content-Security-Policy:
   maxcount: 1
@@ -32,7 +44,7 @@ Strict-Transport-Security:
   mincount: 1
   undermin-penalty: 50
   undermin-message: 'This header must always be present and was not found.'
-  
+
 
 X-Content-Type-Options:
   maxcount: 1
