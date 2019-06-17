@@ -23,7 +23,12 @@ X-AspNet-Version:
 
   mincount: 0
 
+X-Generator:
+  maxcount: 0
+  overmax-penalty: 30
+  overmax-message: 'This header should not be present. Ever. Nothing good can come of it.'
 
+  mincount: 0
 # Headers we would like to see
 
 Content-Security-Policy:
