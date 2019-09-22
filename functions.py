@@ -2,6 +2,24 @@ import yaml
 import re
 from subprocess import Popen, PIPE
 
+def debugprint(txt):
+    if (False):
+        print(txt)
+
+def colorize(txt, clr):
+    # TODO : Implement this; function is currently unused in headercheck.py
+    if(clr == 'RED'):
+        colorcode = '0;31'
+    elif(clr == 'GREEN'):
+        colorcode = '0;32'
+    elif(clr == 'ORANGE'):
+        colorcode = '0;33'
+    else:
+        print("Invalid color!!")
+        sys.exit(1)
+    prefix = '\033[' + colorcode
+    suffix = '\033[0m'
+    return (prefix + txt + suffix)
 
 def is_valid_fqdn(hostname):
     if hostname[-1] == ".":
@@ -20,11 +38,14 @@ def is_valid_fqdn(hostname):
     return all(allowed.match(label) for label in labels)
 
 
+def not_a_valid_response_code(found_headers_raw):
+    return found_headers_raw.find("HTTP/1.0 40") >= 0
+
 def get_headers_from_response(found_headers_raw):
     found_headers_raw = found_headers_raw.split("\r\n")
     found_headers_clean = {}
 
-    skip_headers_that_start_with = ['HTTP/']
+    skip_headers_that_start_with = ['HTTP/', 'http/']
 
     for found_header_raw in found_headers_raw:
         found_header_clean_parts = found_header_raw.split(":")

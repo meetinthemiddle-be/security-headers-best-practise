@@ -1,5 +1,9 @@
+Cache-Control: ignore
 Content-Length: ignore
 Content-Language: ignore
 Content-Type: ignore
-Set-Cookie: ignore
 Date: ignore
+Expires: ignore
+Last-Modified: ignore
+pragma: ignore
+Set-Cookie: ignore
