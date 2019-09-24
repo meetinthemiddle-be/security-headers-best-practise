@@ -1,5 +1,6 @@
 # HTTP security headers best practise (WORK IN PROGESS)
-Best practise cheat sheet for HTTP security headers. Fork at will for your specific project needs.
+The README for this repo contains a best practise cheat sheet for HTTP security headers
+The core of the project is a Python3 script to check compliance against a set of YAML-based spec sheets which you can adapt/adjust for your specific project needs.
 
 
 | Header                      |  Web            |  API  | Remark
