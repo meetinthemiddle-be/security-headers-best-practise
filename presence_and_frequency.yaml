@@ -62,6 +62,11 @@ Strict-Transport-Security:
   undermin-penalty: 50
   undermin-message: 'This header should always be present and was not found.'
 
+  #attributes:
+  #  max-age
+  #  includeSubDomains
+  
+  
 
 X-Content-Type-Options:
   maxcount: 1
@@ -81,7 +86,7 @@ X-Frame-Options:
   mincount: 1
   undermin-penalty: 50
   undermin-message: 'This header should always be present and was not found.'
-  
+
   fyi-message: Please investigate the value of this header. Its presence alone is not sufficient.  
 
 
