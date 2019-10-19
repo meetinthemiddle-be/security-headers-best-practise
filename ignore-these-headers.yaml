@@ -7,3 +7,6 @@ Expires: ignore
 Last-Modified: ignore
 pragma: ignore
 Set-Cookie: ignore
+Vary: ignore
+CF-Cache-Status: ignore
+CF-RAY: ignore

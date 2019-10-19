@@ -1,10 +1,14 @@
 import yaml
 import re
 from subprocess import Popen, PIPE
+import inspect
 
 def debugprint(txt):
     if (False):
-        print(txt)
+        print("DEBUG::" + txt)
+
+def line_nr():
+    return "LINE--:" + str(inspect.currentframe().f_back.f_lineno)
 
 def colorize(txt, clr):
     # TODO : Implement this; function is currently unused in headercheck.py

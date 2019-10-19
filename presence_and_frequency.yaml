@@ -43,6 +43,27 @@ Content-Security-Policy:
 
   fyi-message: Please investigate the value of this header. Its presence alone is not sufficient.  
 
+
+Expect-CT:
+  maxcount: 1
+  overmax-penalty: 50
+  overmax-message: 'This header should not be set more than once.'
+  
+  mincount: 0
+ 
+  fyi-message: Please investigate the value of this header. Its presence alone is not sufficient.
+
+
+Feature-Policy:
+  maxcount: 1
+  overmax-penalty: 50
+  overmax-message: 'This header should not be set more than once.'
+  
+  mincount: 0
+ 
+  fyi-message: Please investigate the value of this header. Its presence alone is not sufficient.
+
+
 Referrer-Policy:
   maxcount: 1
   overmax-penalty: 50
@@ -51,6 +72,27 @@ Referrer-Policy:
   mincount: 1
   undermin-penalty: 50
   undermin-message: 'This header should always be present and was not found.'
+
+
+Report-To:
+  maxcount: 1
+  overmax-penalty: 50
+  overmax-message: 'This header should not be set more than once.'
+  
+  mincount: 0
+ 
+  fyi-message: Please investigate the value of this header. Its presence alone is not sufficient. It should occur together with the NEL header
+
+
+NEL:
+  maxcount: 1
+  overmax-penalty: 50
+  overmax-message: 'This header should not be set more than once.'
+  
+  mincount: 0
+ 
+  fyi-message: Please investigate the value of this header. Its presence alone is not sufficient. It should occur together with the Report-To header
+
 
 
 Strict-Transport-Security:

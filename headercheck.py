@@ -4,6 +4,7 @@ import yaml
 import copy
 from functions import *
 
+
 if len(sys.argv) < 2:
     print("Please supply a valid FQDN (e.g. www.google.com)")
     sys.exit(1)
@@ -13,22 +14,27 @@ else:
     print("Please supply a valid FQDN (e.g. www.google.com)")
     sys.exit(1)
 
+curl_scheme = "https://"
 curl_param = "-IL"
+curl_waiting_time_param = "-m5"
 
-p = Popen(['curl', curl_param, "https://" + fqdn, "-m5"], stdin=PIPE, stdout=PIPE, stderr=PIPE) 
+p = Popen(['curl', curl_param, curl_scheme + fqdn, curl_waiting_time_param], stdin=PIPE, stdout=PIPE, stderr=PIPE) 
 output, err = p.communicate(b"input data that is passed to subprocess' stdin")
 rc = p.returncode
 
 if rc > 0:
     print("https://" + fqdn + " was not reacheable. Timed out? non-200 response code? try curl-ing it manually with this command:")
-    print('curl', curl_param , "https://" + fqdn, "-m5")
+    print('curl', curl_param , curl_scheme + fqdn, curl_waiting_time_param)
     sys.exit(1)
 
+header_sets = output.decode().split("\r\n\r\n")
+last_headerset = header_sets[-2]
+debugprint("LastHeaderSet:\r\n" + last_headerset)
 
-found_headers_clean = get_headers_from_response(output.decode())
+found_headers_clean = get_headers_from_response(last_headerset)
 headers_not_in_spec = copy.deepcopy(found_headers_clean)
 
-if(not_a_valid_response_code(output.decode())):
+if(not_a_valid_response_code(last_headerset)):
     # TODO : add support for these situations, preferably with auto-recovery doing a GET call instead of a HEAD call
     print("Not a valid response code. Remote server might not support HEAD calls")
     print("-----FULL HEADERS-----")
@@ -46,15 +52,12 @@ with open("presence_and_frequency.yaml", 'r') as stream:
          spec_dictionary = yaml.safe_load(stream)
          for spec_header in spec_dictionary.items():
 
-                
+            
             if(spec_header[0].lower() in headers_not_in_spec):
                 del headers_not_in_spec[spec_header[0].lower()]
 
             min_required_count = int(spec_header[1]["mincount"])
             max_allowed_count = int(spec_header[1]["maxcount"])
-                
-            #print("DEBUG : '", spec_header[0],"'" )
-            #print("DEBUG : '",found_headers_clean.keys(),"'" )
 
             if spec_header[0].lower() not in found_headers_clean.keys():
                 ## CAT 1 : not in response && in spec
@@ -71,18 +74,23 @@ with open("presence_and_frequency.yaml", 'r') as stream:
             #print("DEBUG : " , min_required_count )
             #print("DEBUG : " , max_allowed_count )
 
-            if observed_count < min_required_count:
-                overall_score += int(spec_header[1]["undermin-penalty"])
-                warning_messages.append('"' + spec_header[0] + '"' + ' : ' + spec_header[1]["undermin-message"] + "adding penalty: " + str(spec_header[1]["undermin-penalty"]))
-                add_fyi = True
-            elif observed_count > max_allowed_count:
-                overall_score += int(spec_header[1]["overmax-penalty"])
-                warning_messages.append('"' + spec_header[0] + '"' + ' : ' + spec_header[1]["overmax-message"] + "adding penalty: " + str(spec_header[1]["overmax-penalty"]))
-                add_fyi = True
-            elif min_required_count == 0 and max_allowed_count == 0 and observed_count == 0:
+
+
+            if min_required_count == 0 and max_allowed_count == 0 and observed_count == 0:
                 #Don't do anything
                 add_fyi = False
-                #warning_messages.append('"' + spec_header[0] + '"' + ' : ' + spec_header[1]["overmax-message"])
+            elif observed_count < min_required_count:
+                overall_score += int(spec_header[1]["undermin-penalty"])
+                warning_messages.append('Under minimum violation for "' + spec_header[0] + '" (' + str(observed_count) + ' < ' + str(min_required_count) + ') : ' + spec_header[1]["undermin-message"] + 'adding penalty: ' + str(spec_header[1]["undermin-penalty"]))
+                if(observed_count > 0):
+                    add_fyi = True
+                else:
+                    add_fyi = False
+            elif observed_count > max_allowed_count:
+                overall_score += int(spec_header[1]["overmax-penalty"])
+                warning_messages.append('Over Maximum violation for "' + spec_header[0] + '" (' + str(observed_count) + ' > ' + str(max_allowed_count) + ') : ' + spec_header[1]["overmax-message"] + 'adding penalty: ' + str(spec_header[1]["overmax-penalty"]))
+                
+                add_fyi = True
             else:
                 cheer_messages.append('"' + spec_header[0] + '"' + " : Found! Well done!")
                 add_fyi = True
@@ -125,5 +133,5 @@ if len(info_messages) > 0:
         print(m)
     print("")
 
-print("-----FULL HEADERS-----")
-print(output.decode())
+debugprint("-----FULL HEADERS-----")
+debugprint(last_headerset)
