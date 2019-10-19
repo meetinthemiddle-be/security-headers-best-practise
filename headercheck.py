@@ -23,7 +23,7 @@ output, err = p.communicate(b"input data that is passed to subprocess' stdin")
 rc = p.returncode
 
 if rc > 0:
-    print("https://" + fqdn + " was not reacheable. Timed out? non-200 response code? try curl-ing it manually with this command:")
+    print("https://" + fqdn + " was not reacheable. Timed out? non-200 response code? SSL errors? try curl-ing it manually with this command:")
     print('curl', curl_param , curl_scheme + fqdn, curl_waiting_time_param)
     sys.exit(1)
 
