@@ -34,9 +34,9 @@ debugprint("LastHeaderSet:\r\n" + last_headerset)
 found_headers_clean = get_headers_from_response(last_headerset)
 headers_not_in_spec = copy.deepcopy(found_headers_clean)
 
-if(not_a_valid_response_code(last_headerset)):
+if( not has_valid_response_code(last_headerset)):
     # TODO : add support for these situations, preferably with auto-recovery doing a GET call instead of a HEAD call
-    print("Not a valid response code. Remote server might not support HEAD calls")
+    print("FATAL ERROR: Not a valid response code. Remote server might not support HEAD calls...")
     print("-----FULL HEADERS-----")
     print(output.decode())
     sys.exit(1)

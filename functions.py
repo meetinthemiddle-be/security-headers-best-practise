@@ -42,8 +42,16 @@ def is_valid_fqdn(hostname):
     return all(allowed.match(label) for label in labels)
 
 
-def not_a_valid_response_code(found_headers_raw):
-    return found_headers_raw.find("HTTP/1.0 40") >= 0
+def has_valid_response_code(found_headers_raw):
+    debugprint("FIRST RESP LINE" + found_headers_raw.split("\r\n")[0])
+    respcode = found_headers_raw.split("\r\n")[0].split(' ')[1]
+    resp_category = respcode[:1]
+    if(resp_category == "2"):
+        debugprint("GOOD::" + found_headers_raw.split("\r\n")[0])
+        return True
+    else:
+        debugprint("BAD::" + found_headers_raw.split("\r\n")[0])
+        return False
 
 def get_headers_from_response(found_headers_raw):
     found_headers_raw = found_headers_raw.split("\r\n")
