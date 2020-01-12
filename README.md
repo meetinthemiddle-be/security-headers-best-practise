@@ -16,7 +16,7 @@ The core of the project is a Python3 script to check compliance against a set of
 
 Remark 1 : When serving an API that provides only JSON responses and doesn't serve active content, there's no benefit in adding this header.
 
-### acknowledgements / Sources
+### Acknowledgements / Sources
 - https://scotthelme.co.uk/hardening-your-http-response-headers/
 - https://security.stackexchange.com/questions/147554/security-headers-for-a-web-api
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers#Security
