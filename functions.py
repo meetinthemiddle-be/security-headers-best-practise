@@ -8,7 +8,7 @@ def debugprint(txt):
         print("DEBUG::" + txt)
 
 def line_nr():
-    return "LINE--:" + str(inspect.currentframe().f_back.f_lineno)
+    return "LINE::" + str(inspect.currentframe().f_back.f_lineno)
 
 def colorize(txt, clr):
     # TODO : Implement this; function is currently unused in headercheck.py
