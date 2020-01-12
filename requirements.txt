@@ -1,1 +1,1 @@
-detect-secrets==0.13.0
+truffleHog==2.0.97
