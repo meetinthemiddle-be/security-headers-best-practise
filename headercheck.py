@@ -5,6 +5,10 @@ import copy
 
 from functions import is_valid_fqdn, debugprint, has_valid_response_code, get_headers_from_response, get_headers_to_ignore
 
+if sys.version_info[0] != 3:
+    print("Please use Python 3 to run. Exiting.")
+    sys.exit(1)
+
 
 if len(sys.argv) < 2:
     print("Please supply a valid FQDN (e.g. www.google.com)")
@@ -24,7 +28,7 @@ output, err = p.communicate(b"input data that is passed to subprocess' stdin")
 rc = p.returncode
 
 if rc > 0:
-    print("https://" + fqdn + " was not reacheable. Timed out? non-200 response code? SSL errors? try curl-ing it manually with this command:")
+    print("https://" + fqdn + " was not reacheable. Timed out? non-200 response code? SSL errors? port 443 closed? try curl-ing it manually with this command:")
     print('curl', curl_param , curl_scheme + fqdn, curl_waiting_time_param)
     sys.exit(1)
 
