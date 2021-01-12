@@ -2,7 +2,8 @@ import sys
 from subprocess import Popen, PIPE
 import yaml
 import copy
-import functions
+
+from functions import is_valid_fqdn, debugprint, has_valid_response_code, get_headers_from_response, get_headers_to_ignore
 
 
 if len(sys.argv) < 2:
