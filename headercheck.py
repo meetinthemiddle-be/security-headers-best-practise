@@ -68,13 +68,6 @@ with open("presence_and_frequency.yaml", 'r') as stream:
              
             debugprint(spec_header[0] + ' found ' + str(observed_count) + ' times. Minimum required count is ' + str(min_required_count) )
             debugprint(spec_header[0] + ' found ' + str(observed_count) + ' times. Maximum allowed count is ' + str(max_allowed_count) )
-               
-
-            #print("DEBUG : " , observed_count )
-            #print("DEBUG : " , min_required_count )
-            #print("DEBUG : " , max_allowed_count )
-
-
 
             if min_required_count == 0 and max_allowed_count == 0 and observed_count == 0:
                 #Don't do anything
