@@ -2,7 +2,7 @@ import sys
 from subprocess import Popen, PIPE
 import yaml
 import copy
-from functions import *
+import functions
 
 
 if len(sys.argv) < 2:
